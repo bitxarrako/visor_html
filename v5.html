@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Streams con Controles Individuales (6 Frames)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .streams-grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Espacio entre los bloques de stream */
+            width: 100%;
+            max-width: 1200px; /* Ancho máximo para el contenedor de la rejilla */
+        }
+        .stream-section {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1 1 calc(33.33% - 40px); /* Aproximadamente 3 en una fila (ajustado por gap) */
+            min-width: 350px; /* Ancho mínimo para cada sección */
+            box-sizing: border-box;
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .controls {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que los controles salten de línea si es necesario */
+            justify-content: center;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .currentNumberDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 5px;
+            color: #333;
+            min-width: 30px; /* Asegura un ancho mínimo para el número */
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px; /* Espacio entre los botones y el input */
+        }
+        .input-group input[type="number"] {
+            padding: 8px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 80px; /* Ancho para la caja de texto */
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 300px; /* Altura de cada visor de stream */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Visor de Streams con Controles Individuales (6 Frames)</h1>
+
+    <div class="streams-grid-container">
+        <div class="stream-section">
+            <h2>Stream 1</h2>
+            <div class="controls">
+                <button id="menosBtn1">Menos</button>
+                <span id="currentNumberDisplay1" class="currentNumberDisplay">0</span>
+                <button id="masBtn1">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum1" value="0" min="0">
+                    <button id="goBtn1">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame1" src="https://rockhd.lol/live/stream-0.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 2</h2>
+            <div class="controls">
+                <button id="menosBtn2">Menos</button>
+                <span id="currentNumberDisplay2" class="currentNumberDisplay">1</span>
+                <button id="masBtn2">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum2" value="1" min="0">
+                    <button id="goBtn2">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame2" src="https://rockhd.lol/live/stream-1.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 3</h2>
+            <div class="controls">
+                <button id="menosBtn3">Menos</button>
+                <span id="currentNumberDisplay3" class="currentNumberDisplay">2</span>
+                <button id="masBtn3">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum3" value="2" min="0">
+                    <button id="goBtn3">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame3" src="https://rockhd.lol/live/stream-2.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 4</h2>
+            <div class="controls">
+                <button id="menosBtn4">Menos</button>
+                <span id="currentNumberDisplay4" class="currentNumberDisplay">3</span>
+                <button id="masBtn4">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum4" value="3" min="0">
+                    <button id="goBtn4">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame4" src="https://rockhd.lol/live/stream-3.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 5</h2>
+            <div class="controls">
+                <button id="menosBtn5">Menos</button>
+                <span id="currentNumberDisplay5" class="currentNumberDisplay">4</span>
+                <button id="masBtn5">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum5" value="4" min="0">
+                    <button id="goBtn5">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame5" src="https://rockhd.lol/live/stream-4.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 6</h2>
+            <div class="controls">
+                <button id="menosBtn6">Menos</button>
+                <span id="currentNumberDisplay6" class="currentNumberDisplay">5</span>
+                <button id="masBtn6">Más</button>
+                <div class="input-group">
+                    <input type="number" id="inputNum6" value="5" min="0">
+                    <button id="goBtn6">Ir</button>
+                </div>
+            </div>
+            <iframe id="streamFrame6" src="https://rockhd.lol/live/stream-5.php" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Función genérica para configurar los controles de cada frame
+        function setupStreamControls(index, initialNumber) {
+            let currentNumber = initialNumber;
+            const streamFrame = document.getElementById(`streamFrame${index}`);
+            const currentNumberDisplay = document.getElementById(`currentNumberDisplay${index}`);
+            const masBtn = document.getElementById(`masBtn${index}`);
+            const menosBtn = document.getElementById(`menosBtn${index}`);
+            const inputNum = document.getElementById(`inputNum${index}`);
+            const goBtn = document.getElementById(`goBtn${index}`);
+
+            // Sincroniza el input con el número actual al inicio
+            inputNum.value = currentNumber;
+
+            function updateFrame() {
+                const url = `https://rockhd.lol/live/stream-${currentNumber}.php`;
+                streamFrame.src = url;
+                currentNumberDisplay.textContent = currentNumber;
+                inputNum.value = currentNumber; // Sincroniza el input con el número actual
+            }
+
+            // Evento para el botón "Más"
+            masBtn.addEventListener('click', () => {
+                currentNumber++;
+                updateFrame();
+            });
+
+            // Evento para el botón "Menos"
+            menosBtn.addEventListener('click', () => {
+                if (currentNumber > 0) { // Asegura que el número no sea negativo
+                    currentNumber--;
+                    updateFrame();
+                }
+            });
+
+            // Evento para el botón "Ir"
+            goBtn.addEventListener('click', () => {
+                let enteredNumber = parseInt(inputNum.value);
+                if (!isNaN(enteredNumber) && enteredNumber >= 0) {
+                    currentNumber = enteredNumber;
+                    updateFrame();
+                } else {
+                    alert('Por favor, ingresa un número válido (mayor o igual a 0).');
+                    inputNum.value = currentNumber; // Restaura el valor previo si la entrada es inválida
+                }
+            });
+
+            // Evento para cuando se presiona Enter en la caja de texto
+            inputNum.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    goBtn.click(); // Simula un clic en el botón "Ir"
+                }
+            });
+
+            // Inicializar el frame al cargar la página
+            updateFrame();
+        }
+
+        // Configurar cada uno de los 6 streams
+        setupStreamControls(1, 0);
+        setupStreamControls(2, 1);
+        setupStreamControls(3, 2);
+        setupStreamControls(4, 3);
+        setupStreamControls(5, 4);
+        setupStreamControls(6, 5);
+    </script>
+</body>
+</html>

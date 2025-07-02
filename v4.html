@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Streams con Controles Individuales (9 Frames)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; /* Cambiado a columna para el título y luego el contenedor de streams */
+            align-items: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .streams-grid-container {
+            display: flex; /* Contenedor para la rejilla de streams */
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+            justify-content: center; /* Centra los elementos */
+            gap: 15px; /* Espacio entre los bloques de stream */
+            width: 100%;
+            max-width: 1600px; /* Ancho máximo del contenedor de la rejilla */
+        }
+        .stream-section {
+            padding: 10px; /* Reducido el padding */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1 1 calc(33.33% - 30px); /* Aproximadamente 3 en una fila, ajustando por el gap */
+            min-width: 300px; /* Ancho mínimo para cada sección */
+            box-sizing: border-box; /* Incluye padding y borde en el ancho */
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px; /* Reducido el margen */
+            font-size: 1.1em;
+            color: #555;
+        }
+        .controls {
+            margin-bottom: 8px; /* Reducido el margen */
+            display: flex;
+            gap: 8px; /* Reducido el gap */
+            align-items: center;
+        }
+        button {
+            padding: 8px 15px; /* Reducido el padding */
+            font-size: 14px; /* Reducido el tamaño de fuente */
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .currentNumberDisplay {
+            font-size: 16px; /* Reducido el tamaño de fuente */
+            font-weight: bold;
+            margin: 0 5px; /* Reducido el margen */
+            color: #333;
+        }
+        iframe {
+            width: 100%;
+            height: 250px; /* Altura de cada visor de stream, ajustada para 9 */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Visor de Streams con Controles Individuales (9 Frames)</h1>
+
+    <div class="streams-grid-container">
+        <div class="stream-section">
+            <h2>Stream 1</h2>
+            <div class="controls">
+                <button id="menosBtn1">Menos</button>
+                <span id="currentNumberDisplay1" class="currentNumberDisplay">0</span>
+                <button id="masBtn1">Más</button>
+            </div>
+            <iframe id="streamFrame1" src="https://rockhd.lol/live/stream-0.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 2</h2>
+            <div class="controls">
+                <button id="menosBtn2">Menos</button>
+                <span id="currentNumberDisplay2" class="currentNumberDisplay">1</span>
+                <button id="masBtn2">Más</button>
+            </div>
+            <iframe id="streamFrame2" src="https://rockhd.lol/live/stream-1.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 3</h2>
+            <div class="controls">
+                <button id="menosBtn3">Menos</button>
+                <span id="currentNumberDisplay3" class="currentNumberDisplay">2</span>
+                <button id="masBtn3">Más</button>
+            </div>
+            <iframe id="streamFrame3" src="https://rockhd.lol/live/stream-2.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 4</h2>
+            <div class="controls">
+                <button id="menosBtn4">Menos</button>
+                <span id="currentNumberDisplay4" class="currentNumberDisplay">3</span>
+                <button id="masBtn4">Más</button>
+            </div>
+            <iframe id="streamFrame4" src="https://rockhd.lol/live/stream-3.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 5</h2>
+            <div class="controls">
+                <button id="menosBtn5">Menos</button>
+                <span id="currentNumberDisplay5" class="currentNumberDisplay">4</span>
+                <button id="masBtn5">Más</button>
+            </div>
+            <iframe id="streamFrame5" src="https://rockhd.lol/live/stream-4.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 6</h2>
+            <div class="controls">
+                <button id="menosBtn6">Menos</button>
+                <span id="currentNumberDisplay6" class="currentNumberDisplay">5</span>
+                <button id="masBtn6">Más</button>
+            </div>
+            <iframe id="streamFrame6" src="https://rockhd.lol/live/stream-5.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 7</h2>
+            <div class="controls">
+                <button id="menosBtn7">Menos</button>
+                <span id="currentNumberDisplay7" class="currentNumberDisplay">6</span>
+                <button id="masBtn7">Más</button>
+            </div>
+            <iframe id="streamFrame7" src="https://rockhd.lol/live/stream-6.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 8</h2>
+            <div class="controls">
+                <button id="menosBtn8">Menos</button>
+                <span id="currentNumberDisplay8" class="currentNumberDisplay">7</span>
+                <button id="masBtn8">Más</button>
+            </div>
+            <iframe id="streamFrame8" src="https://rockhd.lol/live/stream-7.php" allowfullscreen></iframe>
+        </div>
+
+        <div class="stream-section">
+            <h2>Stream 9</h2>
+            <div class="controls">
+                <button id="menosBtn9">Menos</button>
+                <span id="currentNumberDisplay9" class="currentNumberDisplay">8</span>
+                <button id="masBtn9">Más</button>
+            </div>
+            <iframe id="streamFrame9" src="https://rockhd.lol/live/stream-8.php" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Función genérica para manejar los controles de cada frame
+        function setupStreamControls(index, initialNumber) {
+            let currentNumber = initialNumber;
+            const streamFrame = document.getElementById(`streamFrame${index}`);
+            const currentNumberDisplay = document.getElementById(`currentNumberDisplay${index}`);
+            const masBtn = document.getElementById(`masBtn${index}`);
+            const menosBtn = document.getElementById(`menosBtn${index}`);
+
+            function updateFrame() {
+                const url = `https://rockhd.lol/live/stream-${currentNumber}.php`;
+                streamFrame.src = url;
+                currentNumberDisplay.textContent = currentNumber;
+            }
+
+            masBtn.addEventListener('click', () => {
+                currentNumber++;
+                updateFrame();
+            });
+
+            menosBtn.addEventListener('click', () => {
+                if (currentNumber > 0) {
+                    currentNumber--;
+                    updateFrame();
+                }
+            });
+
+            // Inicializar el frame al cargar la página
+            updateFrame();
+        }
+
+        // Configurar cada uno de los 9 streams
+        setupStreamControls(1, 0);
+        setupStreamControls(2, 1);
+        setupStreamControls(3, 2);
+        setupStreamControls(4, 3);
+        setupStreamControls(5, 4);
+        setupStreamControls(6, 5);
+        setupStreamControls(7, 6);
+        setupStreamControls(8, 7);
+        setupStreamControls(9, 8);
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+Gracias por proporcionar el código. Entiendo que quieres modificarlo para que, en lugar de un solo iframe, haya tres iframes horizontales e independientes. Cada uno de ellos debe actualizarse con la secuencia incremental/decremental de 0, 1, 2, etc., pero de forma independiente entre sí.
+
+Para lograr esto, vamos a hacer los siguientes cambios:
+
+    Sustituir el iframe único por un contenedor div que albergará los tres iframes.
+
+    Añadir tres iframes dentro de ese contenedor, cada uno con su propio id para poder manipularlos individualmente con JavaScript.
+
+    Modificar la lógica de JavaScript para que los botones de "Más" y "Menos" afecten al número base, y luego este número se distribuya a los tres iframes sumándole un desplazamiento (0, 1, 2) para cada uno.
+
+Aquí tienes el código modificado:
+HTML
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Streams Múltiple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+            overflow-x: hidden; /* Evita barras de desplazamiento horizontales si los iframes son muy anchos */
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #currentNumberDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        .iframe-container {
+            display: flex; /* Permite que los iframes se coloquen en horizontal */
+            justify-content: center; /* Centra los iframes si hay espacio */
+            gap: 15px; /* Espacio entre los iframes */
+            width: 100%; /* Ocupa todo el ancho disponible */
+            flex-wrap: wrap; /* Permite que los iframes salten de línea en pantallas pequeñas */
+        }
+        .iframe-wrapper {
+            flex: 1; /* Permite que cada iframe ocupe una parte igual del espacio disponible */
+            min-width: 300px; /* Ancho mínimo para cada iframe, ajusta si es necesario */
+            max-width: 32%; /* Aproximadamente 1/3 del ancho, dejando espacio para el gap */
+            height: 400px; /* Altura de cada iframe, ajusta según tus necesidades */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden; /* Para asegurar que el iframe no se desborde del contenedor */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Quitamos el borde del iframe ya que lo pone el wrapper */
+        }
+    </style>
+</head>
+<body>
+    <h1>Visor de Streams Múltiple</h1>
+
+    <div class="controls">
+        <button id="menosBtn">Menos</button>
+        <span id="currentNumberDisplay">0</span>
+        <button id="masBtn">Más</button>
+    </div>
+
+    <div class="iframe-container">
+        <div class="iframe-wrapper">
+            <iframe id="streamFrame1" src="https://rockhd.lol/live/stream-0.php" allowfullscreen></iframe>
+        </div>
+        <div class="iframe-wrapper">
+            <iframe id="streamFrame2" src="https://rockhd.lol/live/stream-1.php" allowfullscreen></iframe>
+        </div>
+        <div class="iframe-wrapper">
+            <iframe id="streamFrame3" src="https://rockhd.lol/live/stream-2.php" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        let currentBaseNumber = 0; // Este será el número base que se muestra
+        const streamFrame1 = document.getElementById('streamFrame1');
+        const streamFrame2 = document.getElementById('streamFrame2');
+        const streamFrame3 = document.getElementById('streamFrame3');
+        const currentNumberDisplay = document.getElementById('currentNumberDisplay');
+        const masBtn = document.getElementById('masBtn');
+        const menosBtn = document.getElementById('menosBtn');
+
+        function updateFrames() {
+            // Actualiza el primer iframe con el número base
+            streamFrame1.src = `https://rockhd.lol/live/stream-${currentBaseNumber}.php`;
+            // Actualiza el segundo iframe con el número base + 1
+            streamFrame2.src = `https://rockhd.lol/live/stream-${currentBaseNumber + 1}.php`;
+            // Actualiza el tercer iframe con el número base + 2
+            streamFrame3.src = `https://rockhd.lol/live/stream-${currentBaseNumber + 2}.php`;
+            
+            currentNumberDisplay.textContent = currentBaseNumber; // Solo muestra el número base
+        }
+
+        masBtn.addEventListener('click', () => {
+            currentBaseNumber++;
+            updateFrames();
+        });
+
+        menosBtn.addEventListener('click', () => {
+            if (currentBaseNumber > 0) { // Asegura que el número no sea negativo
+                currentBaseNumber--;
+                updateFrames();
+            }
+        });
+
+        // Inicializar los iframes con los números 0, 1, 2 al cargar la página
+        updateFrames();
+    </script>
+</body>
+</html>
