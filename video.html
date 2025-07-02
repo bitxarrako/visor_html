@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Streams</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #currentNumberDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        iframe {
+            width: 90%;
+            height: 700px; /* Ajusta la altura según tus necesidades */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Visor de Streams Dinámico</h1>
+
+    <div class="controls">
+        <button id="menosBtn">Menos</button>
+        <span id="currentNumberDisplay">0</span>
+        <button id="masBtn">Más</button>
+    </div>
+
+    <iframe id="streamFrame" src="https://rockhd.lol/live/stream-0.php" allowfullscreen></iframe>
+
+    <script>
+        let currentNumber = 0;
+        const streamFrame = document.getElementById('streamFrame');
+        const currentNumberDisplay = document.getElementById('currentNumberDisplay');
+        const masBtn = document.getElementById('masBtn');
+        const menosBtn = document.getElementById('menosBtn');
+
+        function updateFrame() {
+            const url = `https://rockhd.lol/live/stream-${currentNumber}.php`;
+            streamFrame.src = url;
+            currentNumberDisplay.textContent = currentNumber;
+        }
+
+        masBtn.addEventListener('click', () => {
+            currentNumber++;
+            updateFrame();
+        });
+
+        menosBtn.addEventListener('click', () => {
+            if (currentNumber > 0) {
+                currentNumber--;
+                updateFrame();
+            }
+        });
+
+        // Inicializar el iframe con el número 0 al cargar la página
+        updateFrame();
+    </script>
+</body>
+</html>
