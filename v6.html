@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmisión de Video RockHD</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Evita barras de desplazamiento innecesarias */
+            background-color: #000; /* Fondo negro para mejor integración con videos */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Elimina el borde predeterminado del iframe */
+            display: block; /* Elimina cualquier espacio extra debajo del iframe */
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://rockhd.lol/live/stream-0.php" allowfullscreen></iframe>
+</body>
+</html>
