@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlador de Stream</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex; /* Use Flexbox for horizontal layout */
+            height: 100vh; /* Make body take full viewport height */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling if content overflows */
+        }
+
+        .frame-panel {
+            flex: 1; /* Each panel takes equal space */
+            box-sizing: border-box; /* Include padding/border in the element's total width and height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #f0f2f5; /* Light background for contrast */
+            border-right: 1px solid #ccc; /* Separator line between "frames" */
+        }
+
+        .frame-panel:last-child {
+            border-right: none; /* No border on the last panel */
+        }
+
+        /* Styles for the Stream Panel (left) */
+        #stream-frame-panel {
+            background-color: #000; /* Dark background for video */
+            border-right: none; /* No border for the stream iframe itself */
+            padding: 0; /* No padding for full iframe width/height */
+        }
+
+        #streamFrame {
+            width: 100%;
+            height: 100%;
+            border: none; /* No border around the iframe */
+        }
+
+        /* Styles for the Control Panel (right) */
+        #control-frame-panel {
+            text-align: center;
+        }
+
+        .current-x-value {
+            font-size: 4em; /* Large font for X value */
+            font-weight: bold;
+            color: #007bff; /* Blue color for the value */
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #28a745; /* Green button */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* Stack panels vertically on smaller screens */
+                height: auto; /* Allow height to adjust */
+            }
+            .frame-panel {
+                height: 50vh; /* Each panel takes half of viewport height */
+                border-right: none; /* No vertical border when stacked */
+                border-bottom: 1px solid #ccc; /* Add horizontal separator */
+            }
+            .frame-panel:last-child {
+                border-bottom: none; /* No bottom border on the last panel */
+            }
+            #stream-frame-panel {
+                order: 1; /* Stream panel first */
+                height: 60vh; /* Give more space to video */
+            }
+            #control-frame-panel {
+                order: 2; /* Control panel second */
+                height: 40vh; /* Less space for controls */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stream-frame-panel" class="frame-panel">
+        <iframe id="streamFrame" src="https://rockhd.lol/live/stream-1.php" allowfullscreen></iframe>
+    </div>
+
+    <div id="control-frame-panel" class="frame-panel">
+        <div class="current-x-value" id="xValueDisplay">1</div>
+        <button onclick="incrementStream()">Ir</button>
+    </div>
+
+    <script>
+        let currentX = 1; // Initial value for 'x'
+
+        function incrementStream() {
+            currentX++; // Increment 'x' by one
+            
+            const streamFrame = document.getElementById('streamFrame');
+            const xValueDisplay = document.getElementById('xValueDisplay');
+
+            // Update the iframe's source, which will reload its content
+            streamFrame.src = `https://rockhd.lol/live/stream-${currentX}.php`;
+            
+            // Update the displayed 'x' value
+            xValueDisplay.textContent = currentX;
+        }
+    </script>
+
+</body>
+</html>
